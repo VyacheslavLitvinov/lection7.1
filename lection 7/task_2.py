@@ -21,7 +21,37 @@
 # т.к. буква "т" встречается 4 раза, "а" 3 раза, 'о' 2 раза, остальные по одной. Сумма трёх самых частых букв 4+3+2 = 9.
 # 1337*32*9 = 385056
 
-# Здесь пишем код
+class PersonInfo:
+    def __init__(self, full_name, age, *dev):
+        self.full_name = full_name
+        self.age = age
+        self.dev = dev
+
+    def short_name(self):
+        surname, name = self.full_name.split()
+        return f"{name} {surname[0]}."
+
+    def path_deps(self):
+        return " --> ".join(self.dev)
+
+    def new_salary(self):
+        letter_count = {}
+        for i in self.dev:
+            for letter in i:
+                if letter not in letter_count:
+                    letter_count[letter] = 0
+                letter_count[letter] += 1
+
+        sorted_letters = sorted(letter_count.items(), key=lambda x: x[1], reverse=True)
+        top_three_letters = [x[0] for x in sorted_letters[:3]]
+
+        count = 0
+        for word in self.dev:
+            for letter in word:
+                if letter in top_three_letters:
+                    count += 1
+
+        return 1337 * self.age * count
 
 # Ниже НИЧЕГО НЕ НАДО ИЗМЕНЯТЬ
 
