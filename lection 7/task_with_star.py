@@ -8,7 +8,24 @@
 # RomanNums('MMMCCLXIII').from_roman() --> 3263
 # RomanNums('CMXCIX').is_palindrome() --> True
 
-# Здесь пишем код
+class RomanNums:
+    def __init__(self, rome_number):
+        self.rome_number = rome_number
+
+    def from_roman(self):
+        roman_dict = {'I': 1, 'V': 5, 'X': 10, 'L': 50,
+                      'C': 100, 'D': 500, 'M': 1000}
+        counter = 0
+        for i in range(len(self.rome_number)):
+            if i > 0 and roman_dict[self.rome_number[i]] > roman_dict[self.rome_number[i - 1]]:
+                counter += roman_dict[self.rome_number[i]] - 2 * roman_dict[self.rome_number[i - 1]]
+            else:
+                counter += roman_dict[self.rome_number[i]]
+        return counter
+
+    def is_palindrome(self):
+        num = self.from_roman()
+        return str(num) == str(num)[::-1]
 
 # Ниже НИЧЕГО НЕ НАДО ИЗМЕНЯТЬ
 
